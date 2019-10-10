@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <%-include includes/head_tags.ejs%>
+
+  <%-include includes/include_css.ejs%>
+
+  <!--CSS especificos desta página-->
+  <link href="libs/chartist/dist/chartist.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="preloader">
+    <div class="lds-ripple">
+      <div class="lds-pos"></div>
+      <div class="lds-pos"></div>
+    </div>
+  </div>
+  <div id="main-wrapper" data-navbarbg="skin6" data-theme="light" data-layout="vertical" data-sidebartype="full"
+    data-boxed-layout="full">
+    <header class="topbar" data-navbarbg="skin6">
+      <%-include includes/navbar.ejs%>
+    </header>
+
+    <aside class="left-sidebar" data-sidebarbg="skin5">
+      <%-include includes/sidebar_left.ejs%>
+    </aside>
+
+    <div class="page-wrapper">
+      <!-- Bread crumb -->
+      <div class="page-breadcrumb">
+        <div class="row">
+          <div class="col-5 align-self-center">
+            <h4 class="page-title">Configurações</h4>
+          </div>
+          <div class="col-7 align-self-center">
+            <div class="d-flex align-items-center justify-content-end">
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item">
+                    <a href="#">Home</a>
+                  </li>
+                  <li class="breadcrumb-item active" aria-current="page">Configurações</li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--End Bread crumb -->
+      <!-- Container fluid  -->
+      <div class="container-fluid">
+        <!-- Start Page Content -->
+        <div class="row">
+          <div class="col-12">
+            <div class="card card-body">
+              <h4 class="card-title">Configurações de carteira</h4>
+              <div class="mb-3">
+                <button data-toggle="modal" data-target="#modalCadCarteira" id="cadastro_carteira" class="btn btn-sm btn-success">Cadastrar carteira</button>
+              </div>
+              <table class="table table-sm">
+                <thead class="thead-theme">
+                  <tr>
+                    <th>Endereço</th>
+                    <th>Moeda</th>
+                    <th>Descrição</th>
+                    <th class="text-center">Ativo</th>
+                    <th class="text-center">Ações</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% carteiras.forEach(function(carteiras){ %>
+                  <tr id="carteira_<%=carteiras.uniqkey%>">
+                    <td><%=carteiras.endereco%></td>
+                    <td><%=carteiras.moeda%></td>
+                    <td><%=carteiras.descricao%></td>
+                    <td class="text-center">
+                      <% if(carteiras.ativo === 'S') { %>
+                      <i class="mdi mdi-check text-success" title="Ativo"></i>
+                      <%} else {%>
+                      <i class="mdi mdi-block-helper text-danger" title="Bloqueado"></i>
+                      <%}%>
+                    </td>
+                    <td class="d-flex justify-content-around">
+                      <% if(carteiras.ativo === 'S') { %>
+                      <a href="#"><i class="mdi mdi-lead-pencil" title="Editar"></i></a>
+                      <a href="#" data-ref="<%=carteiras.uniqkey%>" data-type="bloqueia">
+                        <i class="mdi mdi-block-helper text-danger" title="Bloquear"></i>
+                      </a>
+                      <i class="mdi mdi-qrcode" title="Gerar QRcode"></i>
+                      <%}%>
+                    </td>
+                  </tr>
+                  <%})%>
+                </tbody>
+              </table>
+              <div />
+            </div>
+            <!--End card card-body-->
+          </div>
+          <!--End col-12-->
+        </div>
+        <!--End row-->
+      </div><!-- End Container fluid  -->
+    </div><!-- End Page wrapper  -->
+  </div><!-- End Main-Wrapper -->
+
+  <!-- Modal Cadastro Moeda-->
+  <div class="modal fade" id="modalCadCarteira" tabindex="-1" role="dialog" aria-labelledby="modalCadCarteiraLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalCadCarteiraLabel">Cadastrar Carteira (Wallet)</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal m-t-30">
+                <div class="form-group">
+                    <label>Endereço da carteira</label>
+                    <input type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Moeda</label>
+                    <select class="custom-select col-12" id="" name="">
+                        <option selected>Selecione...</option>
+                        <option value="1">Bitcoin</option>
+                        <option value="2">Litecoin</option>
+                        <option value="3">Binance Coin</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                  <label>Descrição</label>
+                  <input type="text" class="form-control">
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+          <button type="button" class="btn btn-primary">Salvar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%-include includes/include_js.ejs%>
+</body>
+
+</html>

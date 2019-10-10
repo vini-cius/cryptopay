@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <%include includes/head_tags.ejs%>
+
+  <%include includes/include_css.ejs%>
+
+  <!--CSS especificos desta página-->
+  <link href="libs/chartist/dist/chartist.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="preloader">
+    <div class="lds-ripple">
+      <div class="lds-pos"></div>
+      <div class="lds-pos"></div>
+    </div>
+  </div>
+  <div id="main-wrapper" data-navbarbg="skin6" data-theme="light" data-layout="vertical" data-sidebartype="full"
+    data-boxed-layout="full">
+    <header class="topbar" data-navbarbg="skin6">
+      <%include includes/navbar.ejs%>
+    </header>
+
+    <aside class="left-sidebar" data-sidebarbg="skin5">
+      <%include includes/sidebar_left.ejs%>
+    </aside>
+
+    <div class="page-wrapper">
+      <!-- Bread crumb -->
+      <div class="page-breadcrumb">
+        <div class="row">
+          <div class="col-5 align-self-center">
+            <h4 class="page-title">Perfil</h4>
+          </div>
+          <div class="col-7 align-self-center">
+            <div class="d-flex align-items-center justify-content-end">
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item">
+                    <a href="#">Home</a>
+                  </li>
+                  <li class="breadcrumb-item active" aria-current="page">Perfil</li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--End Bread crumb -->
+      <!-- Container fluid  -->
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-4 col-xlg-3 col-md-5">
+            <div class="card">
+              <div class="card-body text-center justify-content-md-center">
+                <div class="m-t-30">
+                  <img src="images/users/1.jpg" class="rounded-circle" width="150" />
+                  <h4 class="card-title m-t-10 mt-1">Scott Richard Kline</h4>
+                  <h6 class="card-subtitle">Administrador</h6>
+                </div>
+              </div>
+              <div>
+                <hr />
+              </div>
+              <div class="card-body">
+                <small class="text-muted">Email</small>
+                <h6>example@gmail.com</h6>
+                <small class="text-muted p-t-30 db">Telefone</small>
+                <h6>11 95062-0303</h6>
+              </div>
+            </div>
+          </div>
+          <!--End column-->
+
+          <div class="col-lg-8 col-xlg-9 col-md-7">
+            <div class="card">
+              <div class="card-body">
+                <form class="form-horizontal form-material">
+                  <div class="form-group">
+                    <label class="col-md-12">Nome</label>
+                    <div class="col-md-12">
+                      <input type="text" placeholder="" class="form-control form-control-line" />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="example-email" class="col-md-12">Usuário</label>
+                    <div class="col-md-12">
+                      <input type="email" placeholder="" class="form-control form-control-line" name="example-email"
+                        id="example-email" />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="example-email" class="col-md-12">Email</label>
+                    <div class="col-md-12">
+                      <input type="email" placeholder="example@gmail.com" class="form-control form-control-line"
+                        name="example-email" id="example-email" />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-12">Senha</label>
+                    <div class="col-md-12">
+                      <input type="password" class="form-control form-control-line" />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-12">Telefone</label>
+                    <div class="col-md-12">
+                      <input type="text" placeholder="123 456 7890" class="form-control form-control-line" />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <button class="btn btn-success">Salvar Alterações</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!--End column-->
+        </div>
+        <!-- End Row -->
+      </div>
+      <!-- End Container fluid  -->
+    </div>
+    <!-- End Page wrapper  -->
+  </div>
+  <!-- End Main-Wrapper -->
+
+  <%include includes/include_js.ejs%>
+</body>
+
+</html>

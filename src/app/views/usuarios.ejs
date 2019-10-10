@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <%include includes/head_tags.ejs%>
+
+  <%include includes/include_css.ejs%>
+
+  <!--CSS especificos desta página-->
+  <link href="libs/chartist/dist/chartist.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="preloader">
+    <div class="lds-ripple">
+      <div class="lds-pos"></div>
+      <div class="lds-pos"></div>
+    </div>
+  </div>
+  <div id="main-wrapper" data-navbarbg="skin6" data-theme="light" data-layout="vertical" data-sidebartype="full"
+    data-boxed-layout="full">
+    <header class="topbar" data-navbarbg="skin6">
+      <%include includes/navbar.ejs%>
+    </header>
+
+    <aside class="left-sidebar" data-sidebarbg="skin5">
+      <%include includes/sidebar_left.ejs%>
+    </aside>
+
+    <div class="page-wrapper">
+      <!-- Bread crumb -->
+      <div class="page-breadcrumb">
+        <div class="row">
+          <div class="col-5 align-self-center">
+            <h4 class="page-title">Usuários</h4>
+          </div>
+          <div class="col-7 align-self-center">
+            <div class="d-flex align-items-center justify-content-end">
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item">
+                    <a href="#">Home</a>
+                  </li>
+                  <li class="breadcrumb-item active" aria-current="page">Usuários</li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--End Bread crumb -->
+      <!-- Container fluid  -->
+      <div class="container-fluid">
+        <!-- Start Page Content -->
+        <div class="row">
+          <div class="col-12">
+          Usuarios
+          <!--End col-12-->
+        </div>
+        <!--End row-->
+      </div>
+      <!-- End Container fluid  -->
+
+      <!-- footer -->
+      <footer class="footer text-center">
+      </footer>
+      <!-- End footer -->
+    </div>
+    <!-- End Page wrapper  -->
+  </div>
+  <!-- End Main-Wrapper -->
+
+  <%include includes/include_js.ejs%>
+</body>
+</html>

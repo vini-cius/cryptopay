@@ -1,0 +1,9 @@
+.table .thead-theme th {
+    color: #fff;
+    background-color: #233242;
+    border-color: #32383e; 
+}
+
+.click {
+    cursor: pointer;
+}

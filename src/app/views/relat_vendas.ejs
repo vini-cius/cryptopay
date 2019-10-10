@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <%include includes/head_tags.ejs%>
+
+  <%include includes/include_css.ejs%>
+</head>
+
+<body>
+  <div class="preloader">
+    <div class="lds-ripple">
+      <div class="lds-pos"></div>
+      <div class="lds-pos"></div>
+    </div>
+  </div>
+  <div id="main-wrapper" data-navbarbg="skin6" data-theme="light" data-layout="vertical" data-sidebartype="full"
+    data-boxed-layout="full">
+    <header class="topbar" data-navbarbg="skin6">
+      <%include includes/navbar.ejs%>
+    </header>
+
+    <aside class="left-sidebar" data-sidebarbg="skin5">
+      <%include includes/sidebar_left.ejs%>
+    </aside>
+
+    <div class="page-wrapper">
+      <!-- Bread crumb -->
+      <div class="page-breadcrumb">
+        <div class="row">
+          <div class="col-5 align-self-center">
+            <h4 class="page-title">Relatório de vendas</h4>
+          </div>
+          <div class="col-7 align-self-center">
+            <div class="d-flex align-items-center justify-content-end">
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item">
+                    <a href="#">Home</a>
+                  </li>
+                  <li class="breadcrumb-item active" aria-current="page">Relatórios</li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--End Bread crumb -->
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="table-responsive">
+                      <table class="table table-sm table-striped">
+                        <thead class="thead-theme">
+                          <tr>
+                            <th>Valor</th>
+                            <th class="text-center">Moeda</th>
+                            <th>Status</th>
+                            <th>Data</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <% pagamentos.forEach(function(pagamentos){ %>
+                          <tr>
+                            <td class="text-right"><%= pagamentos.valor %></td>
+                            <td class="text-center"><%= pagamentos.moeda %></td>
+                            <td><%= pagamentos.status %></td>
+                            <td><%= pagamentos.data %></td>
+                          </tr>
+                          <% }) %>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--End card-->
+          </div>
+          <!--End col-12-->
+        </div>
+        <!--End row-->
+      </div><!-- End Container fluid  -->
+      <!-- End Page wrapper  -->
+    </div><!-- End Main-Wrapper -->
+
+    <%include includes/include_js.ejs%>
+</body>
+
+</html>
