@@ -6,6 +6,7 @@
 
   <%-include includes/include_css.ejs%>
 
+
   <!--CSS especificos desta página-->
   <link href="libs/chartist/dist/chartist.min.css" rel="stylesheet">
 </head>
@@ -57,7 +58,8 @@
             <div class="card card-body">
               <h4 class="card-title">Configurações de carteira</h4>
               <div class="mb-3">
-                <button data-toggle="modal" data-target="#modalCadCarteira" id="cadastro_carteira" class="btn btn-sm btn-success">Cadastrar carteira</button>
+                <button data-toggle="modal" data-target="#modalCadCarteira" id="cadastro_carteira"
+                  class="btn btn-sm btn-success">Cadastrar carteira</button>
               </div>
               <table class="table table-sm">
                 <thead class="thead-theme">
@@ -88,7 +90,9 @@
                       <a href="#" data-ref="<%=carteiras.uniqkey%>" data-type="bloqueia">
                         <i class="mdi mdi-block-helper text-danger" title="Bloquear"></i>
                       </a>
-                      <i class="mdi mdi-qrcode" title="Gerar QRcode"></i>
+                      <a href="#modalQrcode" data-toggle="modal">
+                        <i class="mdi mdi-qrcode" title="Gerar QRcode"></i>
+                      </a>
                       <%}%>
                     </td>
                   </tr>
@@ -118,25 +122,23 @@
           </button>
         </div>
         <div class="modal-body">
-            <form class="form-horizontal m-t-30">
-                <div class="form-group">
-                    <label>Endereço da carteira</label>
-                    <input type="text" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label>Moeda</label>
-                    <select class="custom-select col-12" id="" name="">
-                        <option selected>Selecione...</option>
-                        <option value="1">Bitcoin</option>
-                        <option value="2">Litecoin</option>
-                        <option value="3">Binance Coin</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                  <label>Descrição</label>
-                  <input type="text" class="form-control">
-                </div>
-            </form>
+          <form class="form-horizontal m-t-30">
+            <div class="form-group">
+              <label>Endereço da carteira</label>
+              <input type="text" class="form-control">
+            </div>
+            <div class="form-group">
+              <label>Moeda</label>
+              <select class="custom-select col-12" id="moeda" name="moeda">
+                <option selected>Selecione...</option>
+                <option value=""></option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Descrição</label>
+              <input type="text" class="form-control">
+            </div>
+          </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
@@ -144,7 +146,31 @@
         </div>
       </div>
     </div>
-  </div>
+  </div><!-- End Modal Cadastro Moeda-->
+
+  <!-- Modal QrCode -->
+  <div class="modal fade" id="modalQrcode" tabindex="-1" role="dialog" aria-labelledby="modalQrcodeLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalQrcodeLabel">QrCode</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-center" id="qrcode">
+          <img src="images/frame.png" alt="">
+          <span>2NC8duzvS3Wbz75axmaSADpus4Xqodpv6MF</span>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary">Imprimir</button>
+          <button type="button" class="btn btn-secondary">PDF</button>
+          <button type="button" class="btn btn-secondary">Imagem</button>
+        </div>
+      </div>
+    </div>
+  </div><!-- End Modal QrCode -->
 
   <%-include includes/include_js.ejs%>
 </body>

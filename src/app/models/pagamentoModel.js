@@ -12,17 +12,6 @@ class PagamentoModel {
             });
         });
     }
-
-    salva(pagamento) {
-        return new Promise((resolve, reject) => {
-            var sql = "insert into pagamentos (valor, moeda, status, data, txid) values ('"+pagamento.data.amount_received+"','"+pagamento.data.network+"','"+pagamento.data.confirmations+"',now(),'"+pagamento.data.txid+"')";
-            
-            this._db.query(sql,function(erro,resultados){
-                if(erro) return reject('Não foi possivel gravar');
-                return resolve(resultados);
-            });
-        });
-    }
 }
 
 module.exports = PagamentoModel;

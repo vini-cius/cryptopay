@@ -1,8 +1,11 @@
 "use strict";
+const db = require('../../config/database.js');
 
 const PagamentoModel = require('../models/pagamentoModel.js');
+const pagamentoModel = new PagamentoModel(db);
+
 const CarteiraModel = require('../models/carteiraModel.js');
-const db = require('../../config/database.js');
+const carteiraModel = new CarteiraModel(db);
 
 module.exports = (app) => {
     app.get('/', function (req, resp) {
@@ -13,26 +16,16 @@ module.exports = (app) => {
         resp.render('index.ejs');
     });
 
-    app.post('/dashboard/pagamento', function(req, res){
-        var pagamento = req.body;
-        console.log('Processando uma requisição de um novo pagamento...');
-
-        const pagamentoModel = new PagamentoModel(db);
-
-        pagamentoModel.salva(pagamento)
-            .then(function(data) {
-			    data = data;
-                res.render("index.ejs", {pagamentos: dados, typeMessage: data.type, message: data.message });
-            })
-            .catch(erro => console.log(erro));
-    });
-
     app.get('/configuracoes', function (req, resp) {
-        const carteiraModel = new CarteiraModel(db);
         carteiraModel.lista()
-            .then(carteiras =>  
-                resp.render('configuracoes.ejs', {carteiras: carteiras}))
+            .then(carteiras =>
+                resp.render('configuracoes.ejs', { carteiras: carteiras }))
             .catch(erro => console.log(erro));
+        
+        /*carteiraModel.listaMoeda()
+            .then(moeda =>
+                resp.render('configuracoes.ejs', { moeda: moeda }))
+            .catch(erro => console.log(erro));*/
     });
 
     app.get('/profile', function (req, resp) {
@@ -43,18 +36,10 @@ module.exports = (app) => {
         resp.render('usuarios.ejs');
     });
 
-    app.get('/lista', function (req, resp) {
-        const pagamentoModel = new PagamentoModel(db);
-        pagamentoModel.lista(function(erro,resultados){
-            resp.render('lista.ejs', {pagamentos: resultados});  
-        });
-    });
-
     app.get('/relatorio_vendas', function (req, resp) {
-        const pagamentoModel = new PagamentoModel(db);
         pagamentoModel.lista()
-            .then(pagamentos =>  
-                resp.render('relat_vendas.ejs', {pagamentos: pagamentos}))
+            .then(pagamentos =>
+                resp.render('relat_vendas.ejs', { pagamentos: pagamentos }))
             .catch(erro => console.log(erro));
     });
 
