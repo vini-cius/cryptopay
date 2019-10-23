@@ -1,11 +1,10 @@
 "use strict";
-const db = require('../../config/database.js');
 
-const PagamentoModel = require('../models/pagamentoModel.js');
-const pagamentoModel = new PagamentoModel(db);
+const CarteiraControl = require('../controllers/carteiraControl.js');
+const carteiraControl = new CarteiraControl();
 
-const CarteiraModel = require('../models/carteiraModel.js');
-const carteiraModel = new CarteiraModel(db);
+const PagamentoControl = require('../controllers/pagamentoControl.js');
+const pagamentoContol = new PagamentoControl();
 
 module.exports = (app) => {
     app.get('/', function (req, resp) {
@@ -16,17 +15,7 @@ module.exports = (app) => {
         resp.render('index.ejs');
     });
 
-    app.get('/configuracoes', function (req, resp) {
-        carteiraModel.lista()
-            .then(carteiras =>
-                resp.render('configuracoes.ejs', { carteiras: carteiras }))
-            .catch(erro => console.log(erro));
-        
-        /*carteiraModel.listaMoeda()
-            .then(moeda =>
-                resp.render('configuracoes.ejs', { moeda: moeda }))
-            .catch(erro => console.log(erro));*/
-    });
+    app.get('/configuracoes', carteiraControl.lista());
 
     app.get('/profile', function (req, resp) {
         resp.render('profile.ejs');
@@ -36,12 +25,7 @@ module.exports = (app) => {
         resp.render('usuarios.ejs');
     });
 
-    app.get('/relatorio_vendas', function (req, resp) {
-        pagamentoModel.lista()
-            .then(pagamentos =>
-                resp.render('relat_vendas.ejs', { pagamentos: pagamentos }))
-            .catch(erro => console.log(erro));
-    });
+    app.get('/relatorio_vendas', pagamentoContol.lista());
 
     app.get('/error', function (req, resp) {
         resp.render('error-404.ejs');

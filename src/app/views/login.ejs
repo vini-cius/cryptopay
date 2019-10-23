@@ -17,17 +17,17 @@
         <div class="card mt-5">
           <div class="card-header">Login</div>
           <div class="card-body">
-            <form>
+            <form action="/login" method="POST">
               <div class="form-group">
                 <div class="form-label-group">
-                  <input type="text" id="inputUser" class="form-control" placeholder="Digite seu nome de usuário" required="required" autofocus="autofocus">
-                  <label for="inputUser">Nome de usuário</label>
+                  <input type="text" id="usuario" name="usuario" class="form-control" placeholder="Digite seu nome de usuário" required="required" autofocus="autofocus">
+                  <label for="usuario">Nome de usuário</label>
                 </div>
               </div>
               <div class="form-group">
                 <div class="form-label-group">
-                  <input type="password" id="inputPassword" class="form-control" placeholder="Insira sua senha" required="required">
-                  <label for="inputPassword">Senha</label>
+                  <input type="password" id="senha" name="senha" class="form-control" placeholder="Insira sua senha" required="required">
+                  <label for="senha">Senha</label>
                 </div>
               </div>
               <div class="form-group">
@@ -38,7 +38,7 @@
                   </label>
                 </div>
               </div>
-              <a class="btn btn-primary btn-block" href="/dashboard">Login</a>
+              <button type="submit" class="btn btn-primary btn-block" href="">Login</button>
             </form>
             <div class="text-center mt-2">
               <a class="d-block small" href="forgot-password.html">Esqueceu a senha?</a>
