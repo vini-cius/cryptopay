@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const app = require('./src/config/custom-express.js');
 

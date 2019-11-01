@@ -2,9 +2,6 @@
 
 const ws = new WebSocket('wss://n.block.io/');
 
-const db = require('../../../config/database.js');
-
-
 ws.debug = false;
 ws.timeout = 5400;
 var subscribed = false;
@@ -23,25 +20,14 @@ ws.onmessage = function (msg) {
         if(confirmations < 1) {
             $('#bucket tr:first').before(
                 `<tr>
-                    <td><img src="images/bitcoin-logo.png" /></td>
-                    <td>${totalRecebido}</td>
-                    <td><a href="https://chain.so/tx/btctest/${txid}" target="_blank">TXID</a></td>
+                    <td><img src="images/bitcoin-logo.png" /> ${totalRecebido}</td>
+                    <td>R$ 5,00</td>
+                    <td>TXID: <a href="https://chain.so/tx/btctest/${txid}" target="_blank">${txid.substring(0,8)}...</a></td>
                 </tr>`
             );
 
             $('#bucket').find('tr:gt(10)').remove();
-
             
-            db.connect(function(err) {
-                if (err) throw err;
-                console.log("Connected!");
-                var sql = "INSERT INTO pagamentos (valor, moeda) VALUES ("+totalRecebido+","+moeda+")";
-                con.query(sql, function (err, result) {
-                  if (err) throw err;
-                  console.log("1 record inserted");
-                });
-            });
-
             //servo();
         }
     }
@@ -56,9 +42,6 @@ ws.onmessage = function (msg) {
     }
 }
 
-function salvaPagamento(){
-
-}
 
 /*function servo() {
     let TextVar = "192.168.15.8"
