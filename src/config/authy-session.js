@@ -1,44 +1,63 @@
-var LocalStrategy = require("passport-local").Strategy;
+'use strict';
 
-var bcrypt = require('bcrypt-nodejs');
+const uuid = require('uuid/v4');
+const sessao = require('express-session');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 
 const UsuarioModel = require('../app/models/usuarioModel.js');
-var db = require('./database.js');
+const db = require('./database.js');
 
-const usuarioModel = new UsuarioModel(db);
-
-module.exports = function (passport) {
-    passport.serializeUser(function (user, done) {
-        done(null, user.id);
-    });
-
-    passport.deserializeUser(function (id, done) {
-        db.query("SELECT * FROM usuarios WHERE uniqkey = ? ", [id],
-            function (err, rows) {
-                done(err, rows[0]);
-            });
-    });
-
-    passport.use(
-        'local-login',
-        new LocalStrategy({
+module.exports = (app) => {
+    // configuração da sessão e da autenticação.
+    passport.use(new LocalStrategy(
+        {
             usernameField: 'usuario',
-            passwordField: 'senha',
-            passReqToCallback: true
+            passwordField: 'senha'
         },
-            function (req, username, password, done) {
-                db.query("SELECT * FROM usuarios WHERE usuario = ? ", [username],
-                    function (err, rows) {
-                        if (err)
-                            return done(err);
-                        if (!rows.length) {
-                            return done(null, false, req.flash('loginMessage', 'No User Found'));
-                        }
-                        if (!bcrypt.compareSync(password, rows[0].password))
-                            return done(null, false, req.flash('loginMessage', 'Wrong Password'));
+        (usuario, senha, done) => {
+            const usuarioModel = new UsuarioModel(db);
+            usuarioModel.buscaPorUsuario(usuario)
+                .then(usuario => {
+                    if (!usuario || senha != usuario.senha) {
+                        return done(null, false, {
+                            mensagem: 'Login e senha incorretos!'
+                        });
+                    }
 
-                        return done(null, rows[0]);
-                    });
-            })
-    );
+                    return done(null, usuario);
+                })
+                .catch(erro => done(erro, false));
+        }
+    ));
+
+    passport.serializeUser((usuario, done) => {
+        const usuarioSessao = {
+            nome: usuario.nome,
+            email: usuario.email
+        };
+
+        done(null, usuarioSessao);
+    });
+
+    passport.deserializeUser((usuarioSessao, done) => {
+        done(null, usuarioSessao);
+    });
+
+    app.use(sessao({
+        secret: 'node alura',
+        genid: function (req) {
+            return uuid();
+        },
+        resave: false,
+        saveUninitialized: false
+    }));
+
+    app.use(passport.initialize());
+    app.use(passport.session());
+
+    app.use(function (req, resp, next) {
+        req.passport = passport;
+        next();
+    });
 };

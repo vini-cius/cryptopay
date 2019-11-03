@@ -5,7 +5,7 @@ const db = require("mysql");
 const conn = db.createConnection({
 	host:'localhost',
 	user:'root',
-	password:'password',
+	password:'',
 	database:'cryptopay'
 });
 

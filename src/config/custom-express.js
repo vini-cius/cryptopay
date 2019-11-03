@@ -1,41 +1,41 @@
 'use strict';
 
 const express = require('express');
-const app = express();
 const bodyParser = require('body-parser');
 const expressLayouts = require('express-ejs-layouts');
-//login
-var session = require('express-session');
-var cookieParser = require('cookie-parser');
-var morgan = require('morgan');
-var passport = require('passport');
+const methodOverride = require('method-override');
 
-require('./authy-session.js')(passport);
-require('../app/routers/routers.js')(app, passport);
+const rotas = require('../app/routers/routers.js');
+const sessaoAutenticacao = require('./authy-session.js');
+
+const app = express();
+
+rotas(app);
+sessaoAutenticacao(app);
 
 app.use('/',express.static('src/app/public/'));
 
 app.set('view engine', 'ejs');
 app.set('views','src/app/views/');
 
-/*app.use(function (req, resp, next) {
+app.use(function (req, resp, next) {
     return resp.status(404).render('error-404.ejs')
-});*/
+});
 
 app.use(expressLayouts);
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json()); 
 
-app.use(morgan('dev'));
-app.use(cookieParser());
-app.use(session({
-  secret: 'justasecret',
-  resave:true,
-  saveUninitialized: true
+app.use(methodOverride(function (req, res) {
+  if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+    // look in urlencoded POST bodies and delete it
+    var method = req.body._method;
+    delete req.body._method;
+    return method;
+  }
 }));
 
-app.use(passport.initialize());
-app.use(passport.session());
+
 
 
 /* Teste get balance */
