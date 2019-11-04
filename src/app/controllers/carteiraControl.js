@@ -13,6 +13,7 @@ class CarteiraControl {
                 .catch(erro => console.log(erro));
         }
     }
+
 }
 
 module.exports = CarteiraControl;

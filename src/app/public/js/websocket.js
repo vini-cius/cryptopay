@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const ws = new WebSocket('wss://n.block.io/');
 
@@ -6,7 +6,21 @@ ws.debug = false;
 ws.timeout = 5400;
 var subscribed = false;
 
-//$.ajaxSetup({timeout:1000});
+//Get last price on BitcoinTrade Exchange
+var settings = {
+    "url": "https://api.bitcointrade.com.br/v2/public/BRLBTC/ticker",
+    "method": "GET",
+    "timeout": 0,
+    "headers": {
+        "Content-Type": "application/json"
+    },
+};
+
+var lastPriceBtc;
+
+$.ajax(settings).done(function (res) {
+    lastPriceBtc = res.data.last;
+});
 
 ws.onmessage = function (msg) {
     msg = JSON.parse(msg.data);
@@ -20,9 +34,11 @@ ws.onmessage = function (msg) {
         if(confirmations < 1) {
             $('#bucket tr:first').before(
                 `<tr>
-                    <td><img src="images/bitcoin-logo.png" /> ${totalRecebido}</td>
-                    <td>R$ 5,00</td>
-                    <td>TXID: <a href="https://chain.so/tx/btctest/${txid}" target="_blank">${txid.substring(0,8)}...</a></td>
+                    <td><img src="images/${moeda}-logo.png" /> ${totalRecebido}</td>
+                    <td>R$ ${(totalRecebido * lastPriceBtc).toFixed(2)}</td>
+                    <td>
+                        TXID: <a href="https://chain.so/tx/${moeda}/${txid}" target="_blank">${txid.substring(0,8)}...</a>
+                    </td>
                 </tr>`
             );
 
@@ -41,7 +57,6 @@ ws.onmessage = function (msg) {
         }));
     }
 }
-
 
 /*function servo() {
     let TextVar = "192.168.15.8"

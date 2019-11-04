@@ -53,12 +53,28 @@
               <div class="card-body">
                 <div class="row">
                   <div class="col-md-12">
+                    <div class="m-3">
+                      <form name="" id="" action="" class="form-inline">
+                        <div class="form-group">
+                          <label for="moeda" class="mr-2">Moeda</label>
+                          <select name="moeda" id="moeda" class="custom-select">
+                            <option value="">Bitcoin Testnet</option>
+                            <option value="">Litecoin</option>
+                            <option value="">Binance Coin</option>
+                          </select>
+                        </div>
+                        <div class="form-group ml-auto">
+                          <button type="submit" class="btn btn-sm btn-primary">Filtrar</button>
+                        </div>
+                      </form>
+                    </div>
                     <div class="table-responsive">
                       <table class="table table-sm table-striped">
-                        <thead class="thead-theme">
+                        <thead class="thead-theme text-center">
                           <tr>
-                            <th>Valor</th>
-                            <th class="text-center">Moeda</th>
+                            <th>Quantidade</th>
+                            <th>Moeda</th>
+                            <th>Valor R$</th>
                             <th>Status</th>
                             <th>Data</th>
                           </tr>
@@ -68,8 +84,17 @@
                           <tr>
                             <td class="text-right"><%= pagamentos.valor %></td>
                             <td class="text-center"><%= pagamentos.moeda %></td>
-                            <td><%= pagamentos.status %></td>
-                            <td><%= pagamentos.data %></td>
+                            <td class="text-right">
+                              <%= (pagamentos.valor * 36664.46).toFixed(2).replace('.',',') %>
+                            </td>
+                            <td class="text-center">
+                              <% if(pagamentos.confirmacoes < 3){ %>
+                              <span class="badge badge-danger">Não Confirmado</span>
+                              <%} else {%>
+                              <span class="badge badge-success">Confirmado</span>
+                              <%}%>
+                            </td>
+                            <td class="text-center"><%= pagamentos.dt_criacao.toLocaleString(["pt-br"], {}) %></td>
                           </tr>
                           <% }) %>
                       </table>
