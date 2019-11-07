@@ -11,11 +11,13 @@ const pagamentoContol = new PagamentoControl();
 module.exports = (app) => {
     baseRotas(app);
 
-    /*app.get('/', function (req, resp) {
+    app.get('/', function (req, resp) {
         resp.render('login.ejs');
     });
 
-    app.get('/dashboard', function (req, resp) {
+    app.get('/dashboard', pagamentoContol.salva())
+
+    /*app.get('/dashboard', function (req, resp) {
         resp.render('index.ejs');
     });*/
 

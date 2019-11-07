@@ -12,6 +12,33 @@ class PagamentoModel {
             });
         });
     }
+
+    salva(pagamento) {
+        return new Promise((resolve, reject) => {
+            this._db.query(
+                `INSERT INTO pagamentos 
+                    (valor,moeda,confirmacoes,txid,dt_criacao,id_usuario) 
+                VALUES (?,?,?,?,?,?)
+                `,
+                [
+                    pagamento.totalRecebido,
+                    pagamento.moeda,
+                    pagamento.confirmations,
+                    pagamento.txid,
+                    now(),
+                    1
+                ],
+                function (err) {
+                    if (err) {
+                        console.log(err);
+                        return reject('Não foi possível salvar o pagamento!');
+                    }
+                    resolve();
+                }
+            )
+        });
+    }
+
 }
 
 module.exports = PagamentoModel;

@@ -13,6 +13,15 @@ class PagamentoControl {
                 .catch(erro => console.log(erro));
         }
     }
+
+    salva() {
+        return function (req, resp) {
+            console.log(req.body)
+            pagamentoModel.salva(req.body)
+                .then(resp.redirect('/dashboard'))
+                .catch(erro => console.log(erro));
+        }
+    }
 }
 
 module.exports = PagamentoControl;
