@@ -5,20 +5,11 @@ const PagamentoModel = require('../models/pagamentoModel.js');
 const pagamentoModel = new PagamentoModel(db);
 
 class PagamentoControl {
-    lista() {
-        return function (req, resp) {
+    lista(){
+        return function (req, resp){
             pagamentoModel.lista()
                 .then(pagamentos =>
                     resp.render('relat_vendas.ejs', { pagamentos: pagamentos }))
-                .catch(erro => console.log(erro));
-        }
-    }
-
-    salva() {
-        return function (req, resp) {
-            console.log(req.body)
-            pagamentoModel.salva(req.body)
-                .then(resp.redirect('/dashboard'))
                 .catch(erro => console.log(erro));
         }
     }

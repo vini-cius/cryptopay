@@ -1,11 +1,5 @@
 'use strict';
 
-const ws = new WebSocket('wss://n.block.io/');
-
-ws.debug = false;
-ws.timeout = 5400;
-var subscribed = false;
-
 //Get last price on BitcoinTrade Exchange
 var settings = {
     "url": "https://api.bitcointrade.com.br/v2/public/BRLBTC/ticker",
@@ -21,6 +15,12 @@ var lastPriceBtc;
 $.ajax(settings).done(function (res) {
     lastPriceBtc = res.data.last;
 });
+
+const ws = new WebSocket( 'wss://n.block.io/');
+
+ws.debug = false;
+ws.timeout = 5400;
+var subscribed = false;
 
 ws.onmessage = function (msg) {
     msg = JSON.parse(msg.data);

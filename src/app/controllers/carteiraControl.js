@@ -13,6 +13,15 @@ class CarteiraControl {
                 .catch(erro => console.log(erro));
         }
     }
+
+    listaMoeda(){
+        return function (req, resp){
+            carteiraModel.listaMoeda()
+                .then(moedas =>
+                    resp.render('configuracoes.ejs', { moedas: moedas }))
+                .catch(erro => console.log(erro));
+        }
+    }
 }
 
 module.exports = CarteiraControl;

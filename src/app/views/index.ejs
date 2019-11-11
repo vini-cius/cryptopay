@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <%-include includes/head_tags.ejs-%>
 
@@ -8,6 +9,7 @@
     <!--CSS especificos desta página-->
     <link href="libs/chartist/dist/chartist.min.css" rel="stylesheet">
 </head>
+
 <body>
     <div class="preloader">
         <div class="lds-ripple">
@@ -45,8 +47,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- End Bread crumb -->
+            </div><!-- End Bread crumb -->
 
             <!-- Container fluid  -->
             <div class="container-fluid">
@@ -66,17 +67,26 @@
                                     </div>
                                 </div>
                             </div>
-                        </div><!--End card-->
-                    </div><!--End col-12 -->
-                </div><!--End Row -->
+                        </div>
+                        <!--End card-->
+                    </div>
+                    <!--End col-12 -->
+                </div>
+                <!--End Row -->
 
                 <div class="row">
                     <div class="col-md-8">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title"></h4>
-                                <div class="mt-3">
-                                    
+                                <div class="col-md-4">
+                                    <div class="card" style="background-color: #DDD;">
+                                        <div class="card-body">
+                                            <h5 class="card-titile m-b-5">Saldo Block.IO</h5>
+                                            <% if(balance) {%>
+                                                <h3 class="font-light"><%=balace.data%></h3>
+                                            <% } %>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -122,15 +132,12 @@
     <%-include includes/include_js.ejs-%>
 
     <!--JavaScript especificos desta página-->
-        <!--chartis chart-->
+    <!--chartis chart-->
     <script src="libs/chartist/dist/chartist.min.js"></script>
     <script src="libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
     <script src="js/pages/dashboards/dashboard1.js"></script>
 
-    <script src="js/systemjs.js"></script>
     <!--WebSocket-->
     <script src="js/websocket.js"></script>
-    
-   
 </body>
 </html>

@@ -54,13 +54,38 @@
                   <div class="row">
                     <div class="col-12">
                       <button class="btn btn-sm btn-success mb-3" type="button">Criar novo usuário</button>
-                      <form class="form-inline" action="" method="post">
+                      <form class="form-inline" action="/usuarios" method="post">
                         <div class="form-group">
                           <label for="name-user" class="mr-2">Nome:</label>
                           <input id="name-user" class="form-control form-control-sm" type="text" name="name-user">
                         </div>
                         <button type="submit" class="btn btn-sm btn-primary ml-auto">Buscar</button>
                       </form>
+                    </div>
+                    <div class="col-12 mt-3">
+                      <table class="table table-sm">
+                        <thead class="thead-theme">
+                          <tr>
+                            <th>Nome</th>
+                            <th>Usuário</th>
+                            <th>E-mail</th>
+                            <th class="text-center">Ativo</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <% usuarios.forEach(function(usuarios){ %>
+                          <tr>
+                            <td><%= usuarios.nome %></td>
+                            <td><%= usuarios.usuario %></td>
+                            <td><%= usuarios.email %></td>
+                            <% if (usuarios.ativo === 'S') { %>
+                              <td class="text-center"><span class="badge badge-success">Ativo</span></td>
+                            <%} else {%>
+                              <td class="text-center"><span class="badge badge-danger">Bloqueado</span></td>
+                            <%}%>
+                          </tr>
+                          <%})%>
+                        </tbody>
                     </div>
                   </div>
                 </div>
