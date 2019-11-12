@@ -78,12 +78,31 @@
                     <div class="col-md-8">
                         <div class="card">
                             <div class="card-body">
-                                <div class="col-md-4">
-                                    <div class="card" style="background-color: #DDD;">
+                                <div class="col-md-6">
+                                    <div class="card border">
                                         <div class="card-body">
-                                            <h5 class="card-titile m-b-5">Saldo Block.IO</h5>
-                                            <% if(balance) {%>
-                                                <h3 class="font-light"><%=balace.data%></h3>
+                                            <h5 class="card-titile m-b-5">
+                                                Block.IO 
+                                                <% if(balance){%>
+                                                <span class="text-muted" style="margin-left: 8rem;"><%=balance.network%></span>
+                                                <%}%>
+                                            </h5>
+                                            <hr>
+                                            <h5>Saldo disponível:</h5>
+                                            <% if(balance){ %>
+                                            <span class="h3 font-light" >
+                                                &#3647;
+                                                <span id="balance"><%= parseFloat(balance.available_balance)%></span>
+                                            </span>
+                                            <span class="h4 font-light ml-4" id="balance2brl"></span>
+                                            <% } %>
+                                            <h5 class="mt-2">Saldo pendente:</h5>
+                                            <% if(balance){ %>
+                                            <span class="h3 font-light">
+                                                &#3647;
+                                                <span id="pendent"><%= parseFloat(balance.pending_received_balance)%></span>
+                                            </span>
+                                            <span class="h4 font-light ml-4" id="pendent2brl"></span>
                                             <% } %>
                                         </div>
                                     </div>
@@ -94,8 +113,8 @@
                     <div class="col-md-4">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title m-b-5">Total de Ganhos </h5>
-                                <h3 class="font-light">$769.08</h3>
+                                <h5 class="card-title m-b-5">Total de Ganhos <span class="font-14 text-muted ml-5" id="data"></span></h5>
+                                <h3 class="font-light">$</h3>
                                 <div class="m-t-20 text-center">
                                     <div id="earnings"></div>
                                 </div>
@@ -139,5 +158,38 @@
 
     <!--WebSocket-->
     <script src="js/websocket.js"></script>
+
+    <script>
+        var settings2 = {
+        "url": "https://www.mercadobitcoin.net/api/BTC/ticker/",
+        "method": "GET",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        };
+
+        var lastPrice;
+
+        $.ajax(settings2).done(function (res) {
+            lastPrice = res.ticker.last;
+
+            var balance = $('#balance').html();
+            $('#balance2brl').html('R$ '+(balance * lastPrice).toFixed(2)); 
+
+            var pendent = $('#pendent').html();
+            $('#pendent2brl').html('R$ '+(pendent * lastPrice).toFixed(2));  
+        });
+
+        function dataAtualFormatada(){
+            var data = new Date(),
+                dia  = data.getDate().toString().padStart(2, '0'),
+                mes  = (data.getMonth()+1).toString().padStart(2, '0'), //+1 pois no getMonth Janeiro começa com zero.
+                ano  = data.getFullYear();
+            return dia+"/"+mes+"/"+ano;
+        }
+
+        $('#data').html(dataAtualFormatada())
+    </script>
 </body>
 </html>

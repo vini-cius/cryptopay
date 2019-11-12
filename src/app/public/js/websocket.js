@@ -24,7 +24,6 @@ var subscribed = false;
 
 ws.onmessage = function (msg) {
     msg = JSON.parse(msg.data);
-
     if (msg.type == 'address') {
         var totalRecebido = parseFloat(msg.data.amount_received);
         var moeda = msg.data.network;
