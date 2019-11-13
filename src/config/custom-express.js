@@ -4,16 +4,10 @@ const express = require('express');
 const app = express();
 
 const expressLayouts = require('express-ejs-layouts');
-const engine = require("ejs-locals");
-
 const bodyParser = require('body-parser');
-
-
 const session = require('express-session');
-//const sessaoAutenticacao = require('./authy-session.js');
 
-//sessaoAutenticacao(app);
-const rotas = require('../app/routers/routers.js');
+const rotas = require('../app/routers/routes.js');
 rotas(app);
 
 app.set('views','src/app/views/');

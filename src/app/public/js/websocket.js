@@ -2,7 +2,7 @@
 
 //Get last price on BitcoinTrade Exchange
 var settings = {
-    "url": "https://api.bitcointrade.com.br/v2/public/BRLBTC/ticker",
+    "url": "https://www.mercadobitcoin.net/api/BTC/ticker/",
     "method": "GET",
     "timeout": 0,
     "headers": {
@@ -13,7 +13,7 @@ var settings = {
 var lastPriceBtc;
 
 $.ajax(settings).done(function (res) {
-    lastPriceBtc = res.data.last;
+    lastPriceBtc = res.ticker.last;
 });
 
 const ws = new WebSocket( 'wss://n.block.io/');

@@ -4,7 +4,7 @@ const CarteiraControl = require('../controllers/carteiraControl.js');
 const carteiraControl = new CarteiraControl();
 
 const PagamentoControl = require('../controllers/pagamentoControl.js');
-const pagamentoContol = new PagamentoControl();
+const pagamentoControl = new PagamentoControl();
 
 const UsuarioControl = require('../controllers/usuarioControl.js');
 const usuarioControl = new UsuarioControl();
@@ -18,7 +18,7 @@ module.exports = (app) => {
     app.post('/login', usuarioControl.autentica());
 
     app.get('/dashboard', blockioControl.get_balance());
-    
+    app.get('/dashboard', pagamentoControl.totalGanhos());
     app.get('/dashboard', function (req, resp) {
         resp.render('index.ejs');
     });
@@ -32,5 +32,5 @@ module.exports = (app) => {
 
     app.get('/usuarios', usuarioControl.lista());
 
-    app.get('/relatorio_vendas', pagamentoContol.lista());
+    app.get('/relatorio_vendas', pagamentoControl.lista());
 }

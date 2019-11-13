@@ -78,62 +78,72 @@
                     <div class="col-md-8">
                         <div class="card">
                             <div class="card-body">
-                                <div class="col-md-6">
-                                    <div class="card border">
-                                        <div class="card-body">
-                                            <h5 class="card-titile m-b-5">
-                                                Block.IO 
-                                                <% if(balance){%>
-                                                <span class="text-muted" style="margin-left: 8rem;"><%=balance.network%></span>
-                                                <%}%>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5 class="card-titile m-b-5">
+                                                    Block.IO
+                                                    <% if(balance){%>
+                                                    <span class="text-muted"
+                                                        style="margin-left: 8rem;"><%=balance.network%></span>
+                                                    <%}%>
                                             </h5>
                                             <hr>
                                             <h5>Saldo disponível:</h5>
                                             <% if(balance){ %>
-                                            <span class="h3 font-light" >
-                                                &#3647;
-                                                <span id="balance"><%= parseFloat(balance.available_balance)%></span>
-                                            </span>
-                                            <span class="h4 font-light ml-4" id="balance2brl"></span>
-                                            <% } %>
-                                            <h5 class="mt-2">Saldo pendente:</h5>
-                                            <% if(balance){ %>
-                                            <span class="h3 font-light">
-                                                &#3647;
-                                                <span id="pendent"><%= parseFloat(balance.pending_received_balance)%></span>
-                                            </span>
-                                            <span class="h4 font-light ml-4" id="pendent2brl"></span>
-                                            <% } %>
+                                                    <span class="h3 font-light">
+                                                        &#3647;
+                                                        <span
+                                                            id="balance"><%= parseFloat(balance.available_balance)%></span>
+                                                    </span>
+                                                    <span class="h4 font-light ml-4" id="balance2brl"></span>
+                                                    <% } %>
+                                                    <h5 class="mt-2">Saldo pendente:</h5>
+                                                    <% if(balance){ %>
+                                                    <span class="h3 font-light">
+                                                        &#3647;
+                                                        <span
+                                                            id="pendent"><%= parseFloat(balance.pending_received_balance)%></span>
+                                                    </span>
+                                                    <span class="h4 font-light ml-4" id="pendent2brl"></span>
+                                                    <% } %>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                    <div class="col-md-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5 class="card-title m-b-5">Total de Ganhos <span
+                                                        class="font-14 text-muted ml-5" id="data"></span></h5>
+                                                <h3 class="font-light">$</h3>
+                                                <div class="m-t-20 text-center">
+                                                    <div id="earnings"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!-- End Row -->
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title m-b-5">Total de Ganhos <span class="font-14 text-muted ml-5" id="data"></span></h5>
-                                <h3 class="font-light">$</h3>
-                                <div class="m-t-20 text-center">
-                                    <div id="earnings"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title m-b-0">Undefined</h4>
-                                <h2 class="font-light">35,658 <span class="font-16 text-success font-medium">+23%</span>
+                                <h4 class="card-title m-b-0">Cotação</h4>
+                                <h2 class="font-light">
+                                    <span id="lastPrice"></span>
+                                    <span id="percent" class="font-16 font-medium"></span>
                                 </h2>
                                 <div class="m-t-30">
                                     <div class="row text-center">
                                         <div class="col-6 border-right">
-                                            <h4 class="m-b-0">58%</h4>
-                                            <span class="font-14 text-muted">Undefined</span>
+                                            <h4 class="m-b-0"></h4>
+                                            <span class="font-14 text-muted"></span>
                                         </div>
                                         <div class="col-6">
-                                            <h4 class="m-b-0">42%</h4>
-                                            <span class="font-14 text-muted">Undefined</span>
+                                            <h4 class="m-b-0"></h4>
+                                            <span class="font-14 text-muted"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -161,35 +171,73 @@
 
     <script>
         var settings2 = {
-        "url": "https://www.mercadobitcoin.net/api/BTC/ticker/",
-        "method": "GET",
-        "timeout": 0,
-        "headers": {
-            "Content-Type": "application/json"
-        },
+            "url": "https://www.mercadobitcoin.net/api/BTC/ticker/",
+            "method": "GET",
+            "timeout": 0,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+        };
+
+        var settings3 = {
+            "url": "https://www.mercadobitcoin.net/api/BTC/day-summary/2019/11/12/",
+            "method": "GET",
+            "timeout": 0,
+            "headers": {
+                "Content-Type": "application/json"
+            },
         };
 
         var lastPrice;
 
-        $.ajax(settings2).done(function (res) {
+        $.ajax(settings2).done(function (res){
             lastPrice = res.ticker.last;
 
             var balance = $('#balance').html();
-            $('#balance2brl').html('R$ '+(balance * lastPrice).toFixed(2)); 
+            $('#balance2brl').html('R$ ' + (balance * lastPrice).toFixed(2));
 
             var pendent = $('#pendent').html();
-            $('#pendent2brl').html('R$ '+(pendent * lastPrice).toFixed(2));  
+            $('#pendent2brl').html('R$ ' + (pendent * lastPrice).toFixed(2));
+
+            $('#lastPrice').html('R$ '+ parseFloat(lastPrice).toFixed(2));
         });
+
+        $.ajax(settings3).done(function (res){
+            var open = res.opening;
+
+            if(open < lastPrice){
+                var indicador = "+";
+                var change = lastPrice - open;
+                var percent = change / open;
+                percent = percent * 100;
+                var color = "green"
+            }
+            else{
+                var indicador = "-";
+                var change = lastPrice - open;
+                var percent = change / open;
+                percent = percent * 100;
+                var color = "red"
+            }
+
+            $('#percent').html(indicador + percent +' %');
+            $('#percent').css('color',color);
+        });
+
+       
+
+        
 
         function dataAtualFormatada(){
             var data = new Date(),
-                dia  = data.getDate().toString().padStart(2, '0'),
-                mes  = (data.getMonth()+1).toString().padStart(2, '0'), //+1 pois no getMonth Janeiro começa com zero.
-                ano  = data.getFullYear();
-            return dia+"/"+mes+"/"+ano;
+                dia = data.getDate().toString().padStart(2, '0'),
+                mes = (data.getMonth() + 1).toString().padStart(2, '0'), //+1 pois no getMonth Janeiro começa com zero.
+                ano = data.getFullYear();
+            return dia + "/" + mes + "/" + ano;
         }
 
         $('#data').html(dataAtualFormatada())
     </script>
 </body>
+
 </html>
