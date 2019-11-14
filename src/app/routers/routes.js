@@ -33,4 +33,8 @@ module.exports = (app) => {
     app.get('/usuarios', usuarioControl.lista());
 
     app.get('/relatorio_vendas', pagamentoControl.lista());
+
+    app.get('/suporte', function (req, resp) {
+        resp.render('suporte.ejs');
+    });
 }

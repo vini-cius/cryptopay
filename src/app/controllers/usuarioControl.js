@@ -9,7 +9,6 @@ class UsuarioControl {
 
     login(){
         return function (req, resp) {
-            console.log(req.session)
            // req.session.destroy();
             resp.render("../views/login.ejs");
         }
@@ -18,7 +17,7 @@ class UsuarioControl {
     autentica(){    
         return function (req, resp) {
             let body = req.body;
-            console.log('body: ' + body)
+            console.log('body: ' + body);
             usuarioModel.login(body)
                 .then(user => {
                     if(user.userId){

@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
-
 <head>
+    <!-- Tags heads comuns -->
     <%-include includes/head_tags.ejs-%>
 
+    <!-- Styleeshets comuns para todo o sistema -->
     <%-include includes/include_css.ejs-%>
 
-    <!--CSS especificos desta página-->
+    <!-- Styleeshets especificos desta página -->
     <link href="libs/chartist/dist/chartist.min.css" rel="stylesheet">
 </head>
-
 <body>
     <div class="preloader">
         <div class="lds-ripple">
@@ -67,12 +67,9 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!--End card-->
-                    </div>
-                    <!--End col-12 -->
-                </div>
-                <!--End Row -->
+                        </div><!--End card-->
+                    </div><!--End col-12 -->
+                </div><!--End Row -->
 
                 <div class="row">
                     <div class="col-md-8">
@@ -116,7 +113,7 @@
                                             <div class="card-body">
                                                 <h5 class="card-title m-b-5">Total de Ganhos <span
                                                         class="font-14 text-muted ml-5" id="data"></span></h5>
-                                                <h3 class="font-light">$</h3>
+                                                <h3 class="font-light">R$ 643,00</h3>
                                                 <div class="m-t-20 text-center">
                                                     <div id="earnings"></div>
                                                 </div>
@@ -130,7 +127,7 @@
                     <div class="col-md-4">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title m-b-0">Cotação</h4>
+                                <h4 class="card-title m-b-0">Cotação &#3647;itcoin</h4>
                                 <h2 class="font-light">
                                     <span id="lastPrice"></span>
                                     <span id="percent" class="font-16 font-medium"></span>
@@ -151,93 +148,27 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- End container-fluid  -->
-        </div>
-        <!-- End Page wrapper  -->
-    </div>
-    <!-- End Main-Wrapper -->
+            </div><!-- End container-fluid  -->
+        </div><!-- End Page wrapper  -->
+    </div><!-- End Main-Wrapper -->
 
+    <!-- Javascript comum para todo o sistema -->
     <%-include includes/include_js.ejs-%>
 
     <!--JavaScript especificos desta página-->
+
     <!--chartis chart-->
     <script src="libs/chartist/dist/chartist.min.js"></script>
     <script src="libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
     <script src="js/pages/dashboards/dashboard1.js"></script>
 
-    <!--WebSocket-->
+    <!-- WebSocket -->
     <script src="js/websocket.js"></script>
+    <!-- Api de dados da Block.io -->
+    <script src="js/apiBlockio.js"></script>
 
     <script>
-        var settings2 = {
-            "url": "https://www.mercadobitcoin.net/api/BTC/ticker/",
-            "method": "GET",
-            "timeout": 0,
-            "headers": {
-                "Content-Type": "application/json"
-            },
-        };
-
-        var settings3 = {
-            "url": "https://www.mercadobitcoin.net/api/BTC/day-summary/2019/11/12/",
-            "method": "GET",
-            "timeout": 0,
-            "headers": {
-                "Content-Type": "application/json"
-            },
-        };
-
-        var lastPrice;
-
-        $.ajax(settings2).done(function (res){
-            lastPrice = res.ticker.last;
-
-            var balance = $('#balance').html();
-            $('#balance2brl').html('R$ ' + (balance * lastPrice).toFixed(2));
-
-            var pendent = $('#pendent').html();
-            $('#pendent2brl').html('R$ ' + (pendent * lastPrice).toFixed(2));
-
-            $('#lastPrice').html('R$ '+ parseFloat(lastPrice).toFixed(2));
-        });
-
-        $.ajax(settings3).done(function (res){
-            var open = res.opening;
-
-            if(open < lastPrice){
-                var indicador = "+";
-                var change = lastPrice - open;
-                var percent = change / open;
-                percent = percent * 100;
-                var color = "green"
-            }
-            else{
-                var indicador = "-";
-                var change = lastPrice - open;
-                var percent = change / open;
-                percent = percent * 100;
-                var color = "red"
-            }
-
-            $('#percent').html(indicador + percent +' %');
-            $('#percent').css('color',color);
-        });
-
-       
-
-        
-
-        function dataAtualFormatada(){
-            var data = new Date(),
-                dia = data.getDate().toString().padStart(2, '0'),
-                mes = (data.getMonth() + 1).toString().padStart(2, '0'), //+1 pois no getMonth Janeiro começa com zero.
-                ano = data.getFullYear();
-            return dia + "/" + mes + "/" + ano;
-        }
-
-        $('#data').html(dataAtualFormatada())
+        $('#data').html(dataAtualFormatada());
     </script>
 </body>
-
 </html>

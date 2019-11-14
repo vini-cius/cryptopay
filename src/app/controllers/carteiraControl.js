@@ -2,7 +2,7 @@
 const db = require('../../config/database.js');
 
 const CarteiraModel = require('../models/carteiraModel.js');
-const carteiraModel = new CarteiraModel(db);s
+const carteiraModel = new CarteiraModel(db);
 
 class CarteiraControl {
     lista() {
