@@ -2,10 +2,10 @@
 <html>
 <head>
     <!-- Tags heads comuns -->
-    <%-include includes/head_tags.ejs-%>
+    <%-include includes/head_tags -%>
 
     <!-- Styleeshets comuns para todo o sistema -->
-    <%-include includes/include_css.ejs-%>
+    <%-include includes/include_css -%>
 
     <!-- Styleeshets especificos desta página -->
     <link href="libs/chartist/dist/chartist.min.css" rel="stylesheet">
@@ -20,11 +20,11 @@
     <div id="main-wrapper" data-navbarbg="skin6" data-theme="light" data-layout="vertical" data-sidebartype="full"
         data-boxed-layout="full">
         <header class="topbar" data-navbarbg="skin6">
-            <%-include includes/navbar.ejs-%>
+            <%-include includes/navbar -%>
         </header>
 
         <aside class="left-sidebar" data-sidebarbg="skin5">
-            <%-include includes/sidebar_left.ejs-%>
+            <%-include includes/sidebar_left -%>
         </aside>
 
         <div class="page-wrapper">
@@ -91,8 +91,7 @@
                                             <% if(balance){ %>
                                                     <span class="h3 font-light">
                                                         &#3647;
-                                                        <span
-                                                            id="balance"><%= parseFloat(balance.available_balance)%></span>
+                                                        <span id="balance"><%= parseFloat(balance.available_balance)%></span>
                                                     </span>
                                                     <span class="h4 font-light ml-4" id="balance2brl"></span>
                                                     <% } %>
@@ -130,7 +129,6 @@
                                 <h4 class="card-title m-b-0">Cotação &#3647;itcoin</h4>
                                 <h2 class="font-light">
                                     <span id="lastPrice"></span>
-                                    <span id="percent" class="font-16 font-medium"></span>
                                 </h2>
                                 <div class="m-t-30">
                                     <div class="row text-center">
@@ -153,19 +151,19 @@
     </div><!-- End Main-Wrapper -->
 
     <!-- Javascript comum para todo o sistema -->
-    <%-include includes/include_js.ejs-%>
+        <%-include includes/include_js -%>
 
     <!--JavaScript especificos desta página-->
-
-    <!--chartis chart-->
-    <script src="libs/chartist/dist/chartist.min.js"></script>
-    <script src="libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
-    <script src="js/pages/dashboards/dashboard1.js"></script>
+        <!--chartis chart-->
+        <script src="libs/chartist/dist/chartist.min.js"></script>
+        <script src="libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+        <script src="js/pages/dashboards/dashboard1.js"></script>
 
     <!-- WebSocket -->
-    <script src="js/websocket.js"></script>
-    <!-- Api de dados da Block.io -->
-    <script src="js/apiBlockio.js"></script>
+        <script src="js/websocket.js"></script>
+    
+    <!-- Api de dados da Mercado Bitcoin -->
+        <script src="js/apiMercadoBtc.js"></script>
 
     <script>
         $('#data').html(dataAtualFormatada());

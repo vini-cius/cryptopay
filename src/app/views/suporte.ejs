@@ -29,7 +29,7 @@
       <div class="page-breadcrumb">
         <div class="row">
           <div class="col-5 align-self-center">
-            <h4 class="page-title"></h4>
+            <h4 class="page-title">Suporte</h4>
           </div>
           <div class="col-7 align-self-center">
             <div class="d-flex align-items-center justify-content-end">
@@ -38,7 +38,7 @@
                   <li class="breadcrumb-item">
                     <a href="#">Home</a>
                   </li>
-                  <li class="breadcrumb-item active" aria-current="page"></li>
+                  <li class="breadcrumb-item active" aria-current="page">Suporte</li>
                 </ol>
               </nav>
             </div>
@@ -48,24 +48,81 @@
       <!--End Bread crumb -->
       <!-- Container fluid  -->
       <div class="container-fluid">
-        <!-- Start Page Content -->
         <div class="row">
           <div class="col-12">
-          Suporte
+            <div class="card">
+              <div class="card-body">
+                <button type="button" class="btn btn-sm btn-success mb-3" id="btnNovoChamado" data-toggle="modal" data-target="#modalNovoChamado">
+                  Abrir novo chamado
+                </button>
+                  <div class="mt-2 mb-2">
+                    <h4>Meus chamados</h4>
+                  </div>
+                  <table class="table table-sm">
+                    <thead class="thead-theme">
+                      <tr>
+                        <th width="10"></th>
+                        <th>Assunto</th>
+                        <th>Data de abertura</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><span class="mdi mdi-eye click" title="Visualizar andamento"></span></td>
+                        <td>Erro no valor da cotação</td>
+                        <td>09/12/2019</td>
+                        <td>Pendente</td>
+                      </tr>
+                    </tbody>
+                  </table>
+              </div>
+            </div>
+          </div>
           <!--End col-12-->
         </div>
         <!--End row-->
-      </div>
-      <!-- End Container fluid  -->
+      </div><!-- End Container fluid  -->
+    </div><!-- End Page wrapper  -->
+  </div><!-- End Main-Wrapper -->
 
-      <!-- footer -->
-      <footer class="footer text-center">
-      </footer>
-      <!-- End footer -->
+  <!-- Modal Novo Chamado -->
+  <div class="modal fade" id="modalNovoChamado" tabindex="-1" role="dialog" aria-labelledby="modalNovoChamadoLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalNovoChamadoLabel">Abrir novo chamado</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal m-t-30" name="formSuporte" id="formSuporte" method="post" action="">
+            <div class="form-group">
+              <label>Assunto</label>
+              <input type="text" name="nomeUser" id="nomeUser" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" name="email" id="email" value="viniciuskt0@gmail.com" class="form-control" readonly>
+            </div>
+            <div class="form-group">
+              <label>Solicitação</label>
+              <textarea name="solicitacao" id="solicitacao" cols="30" rows="10" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Anexo</label>
+                <input type="file" name="anexoChamado" id="anexoChamado" class="form-control">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="saveChamado" class="btn btn-primary">Enviar solicitação</button>
+        </div>
+      </div>
     </div>
-    <!-- End Page wrapper  -->
-  </div>
-  <!-- End Main-Wrapper -->
+  </div><!-- End Modal Novo Chamado -->
 
   <%include includes/include_js.ejs%>
 </body>

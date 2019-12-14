@@ -23,14 +23,14 @@ module.exports = (app) => {
         resp.render('index.ejs');
     });
 
-    app.get('/configuracoes', carteiraControl.lista());
-    app.get('/configuracoes', carteiraControl.listaMoeda());
+    app.get('/configuracoes', carteiraControl.lista(), carteiraControl.listaMoeda());    
 
     app.get('/profile', function (req, resp) {
         resp.render('profile.ejs');
     });
 
     app.get('/usuarios', usuarioControl.lista());
+    app.post('/usuarios/salva-user', usuarioControl.salva());
 
     app.get('/relatorio_vendas', pagamentoControl.lista());
 

@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <%include includes/head_tags.ejs%>
 
   <%include includes/include_css.ejs%>
-</head>
 
+  <style>
+    .circle {
+      width:15px;
+      height:15px;
+      border-radius:50%;
+      overflow:hidden;
+    }
+  </style>
+</head>
 <body>
   <div class="preloader">
     <div class="lds-ripple">
@@ -102,11 +109,13 @@
                               <%= (pagamentos.valor * 36664.46).toFixed(2).replace('.',',') %>
                             </td>
                             <td class="text-center">
-                              <% if(pagamentos.confirmacoes < 3){ %>
-                              <span class="badge badge-danger">Não Confirmado</span>
-                              <%} else {%>
-                              <span class="badge badge-success">Confirmado</span>
-                              <%}%>
+                              <div class="row justify-content-center">
+                                <% if(pagamentos.confirmacoes < 3){ %>
+                                <div class="circle bg-danger"></div>
+                                <%} else {%>
+                                <span class="circle bg-success"></span>
+                                <%}%>
+                              </div>
                             </td>
                             <td class="text-center"><%= pagamentos.dt_criacao.toLocaleString(["pt-br"], {}) %></td>
                           </tr>

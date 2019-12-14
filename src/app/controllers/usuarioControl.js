@@ -17,15 +17,15 @@ class UsuarioControl {
     autentica(){    
         return function (req, resp) {
             let body = req.body;
-            console.log('body: ' + body);
             usuarioModel.login(body)
                 .then(user => {
-                    if(user.userId){
-                        req.session.loggedUser = user;
-                        req.session.timeZone = req.body.timeZone * -1;
-                        resp.render("../views/index.js", { loggedUser: user, timeZone: req.session.timeZone });
+                    console.log(user)
+                    let result = JSON.stringify(user);
+                    result = JSON.parse(result);
+                    if(!user){
+                        console.log('usuario invalido');
                     } else {
-                        resp.render("../views/login.ejs");
+                        resp.redirect("/dashboard");
                     }
                 })
                 .catch(erro => console.log(erro));
@@ -37,6 +37,20 @@ class UsuarioControl {
             usuarioModel.lista()
                 .then(usuarios => 
                     resp.render('usuarios.ejs', { usuarios: usuarios }))
+                .catch(erro => console.log(erro));
+        }
+    }
+
+    salva(){
+        return function(req, resp){
+            var dados = req.body;
+            console.log('body user: ' + dados.nomeUser);
+            usuarioModel.salvaUser(dados)
+                .then(function(data) {
+                    data = data;
+                    dados.userId = data.userId;
+                    resp.redirect("/usuarios");
+                })
                 .catch(erro => console.log(erro));
         }
     }
