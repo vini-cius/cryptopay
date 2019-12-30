@@ -5,9 +5,9 @@ class CarteiraModel {
 
     lista(){
         return new Promise((resolve,reject) => {
-            let sql = `select uniqkey, endereco, moeda, descricao, 
+            let sql = `SELECT id_wallet, address, network, exchange,
                 case when ativo = 1 then "S" else "N" end as ativo, 
-                dt_cadastro, id_usuario from carteiras`
+                dt_cadastro, user_cadastro FROM wallets`
             this._db.query(sql,function(erro,resultados){
                 if(erro) return reject('Não foi possivel listar');
                 return resolve(resultados);
@@ -17,7 +17,7 @@ class CarteiraModel {
 
     listaMoeda(){
         return new Promise((resolve,reject) =>{
-            let sql = 'select uniqkey,moeda,sigla from moedas';
+            let sql = 'select id_network,network,sigla from networks';
             this._db.query(sql,function(erro,resultados){
                 if(erro) return reject('Não foi possivel listar');
                 return resolve(resultados);

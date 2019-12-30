@@ -12,6 +12,9 @@ const usuarioControl = new UsuarioControl();
 const BlockioControl = require('../controllers/blockioControl.js');
 const blockioControl = new BlockioControl();
 
+const SuporteControl = require('../controllers/suporteControl.js');
+const suporteControl = new SuporteControl();
+
 module.exports = (app) => {
     app.get('/', usuarioControl.login());
     app.get('/login', usuarioControl.login());
@@ -23,7 +26,8 @@ module.exports = (app) => {
         resp.render('index.ejs');
     });
 
-    app.get('/configuracoes', carteiraControl.lista(), carteiraControl.listaMoeda());    
+    app.get('/configuracoes', carteiraControl.lista());    
+    app.get('/configuracoes', carteiraControl.listaMoeda());
 
     app.get('/profile', function (req, resp) {
         resp.render('profile.ejs');
@@ -34,7 +38,6 @@ module.exports = (app) => {
 
     app.get('/relatorio_vendas', pagamentoControl.lista());
 
-    app.get('/suporte', function (req, resp) {
-        resp.render('suporte.ejs');
-    });
+    app.get('/suporte', suporteControl.listaChamados());
+    app.post('/suporte/salva-chamado', suporteControl.criaChamado());
 }

@@ -7,7 +7,6 @@ const path = require("path");
 const engine = require("ejs-locals");
 const bodyParser = require('body-parser');
 const session = require('express-session');
-const redis = require('redis');
 
 app.set('views', path.join(__dirname, '../app/views'));
 
@@ -16,16 +15,6 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }));
-
-/*var cache = redis.createClient({host : 'localhost', port : 6379 });
-
-cache.on('ready',function() {
-	console.log("Redis is ready");
-});
-
-cache.on('error',function() {
-	console.log("Error in Redis");
-});*/
 
 app.use('/', express.static('src/app/public'));
 

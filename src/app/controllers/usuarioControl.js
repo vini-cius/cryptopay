@@ -44,7 +44,6 @@ class UsuarioControl {
     salva(){
         return function(req, resp){
             var dados = req.body;
-            console.log('body user: ' + dados.nomeUser);
             usuarioModel.salvaUser(dados)
                 .then(function(data) {
                     data = data;

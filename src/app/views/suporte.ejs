@@ -68,12 +68,14 @@
                       </tr>
                     </thead>
                     <tbody>
+                      <% chamados.forEach(function(chamados){ %>
                       <tr>
                         <td><span class="mdi mdi-eye click" title="Visualizar andamento"></span></td>
-                        <td>Erro no valor da cotação</td>
-                        <td>09/12/2019</td>
-                        <td>Pendente</td>
+                        <td><%= chamados.assunto%></td>
+                        <td><%= chamados.dt_criacao.toLocaleString(["pt-br"], {})%></td>
+                        <td><%= chamados.descricao%></td>
                       </tr>
+                      <%})%>
                     </tbody>
                   </table>
               </div>
@@ -84,7 +86,7 @@
         <!--End row-->
       </div><!-- End Container fluid  -->
     </div><!-- End Page wrapper  -->
-  </div><!-- End Main-Wrapper -->
+  </div><!-- End Main-Wrapper --> 
 
   <!-- Modal Novo Chamado -->
   <div class="modal fade" id="modalNovoChamado" tabindex="-1" role="dialog" aria-labelledby="modalNovoChamadoLabel"
@@ -98,10 +100,10 @@
           </button>
         </div>
         <div class="modal-body">
-          <form class="form-horizontal m-t-30" name="formSuporte" id="formSuporte" method="post" action="">
+          <form class="form-horizontal m-t-30" name="formSuporte" id="formSuporte" method="post" action="/suporte/salva-chamado">
             <div class="form-group">
               <label>Assunto</label>
-              <input type="text" name="nomeUser" id="nomeUser" class="form-control" required>
+              <input type="text" name="assunto" id="assunto" class="form-control" required>
             </div>
             <div class="form-group">
               <label>Email</label>
@@ -125,6 +127,12 @@
   </div><!-- End Modal Novo Chamado -->
 
   <%include includes/include_js.ejs%>
+
+  <script>
+    $('#saveChamado').on('click', function(){
+      $('#formSuporte').submit();
+    });
+  </script>
 </body>
 
 </html>

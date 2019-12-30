@@ -5,7 +5,7 @@ class PagamentoModel {
 
     lista(){
         return new Promise((resolve,reject) => {
-            let sql = 'select valor, moeda, confirmacoes, dt_criacao from pagamentos';
+            let sql = 'SELECT network, amount, confirmations, dt_received FROM payments_received';
             this._db.query(sql,function(erro,resultados){
                 if(erro) return reject('Não foi possivel listar');
                 return resolve(resultados);
@@ -15,8 +15,8 @@ class PagamentoModel {
 
     totalGanhos(){
         return new Promise((resolve, reject) => {
-            let sql = `SELECT round(sum(valor),8) as valor FROM pagamentos 
-                        WHERE day(dt_criacao) = day(NOW()) AND MONTH(dt_criacao) = MONTH(NOW());`;
+            let sql = `SELECT round(sum(amount),8) as valor FROM payments_received 
+                        WHERE day(dt_received) = day(NOW()) AND MONTH(dt_received) = MONTH(NOW());`;
             this._db.query(sql, function(erro, resultados){
                 if(erro) return reject('Erro total de ganhos');
                 return resolve(resultados);
